@@ -1,22 +1,23 @@
 package Adapters;
-
 import java.rmi.RemoteException;
 
-import Abstract.CustomerCheckService;
-import Entities.Customer;
+import Abstract.GamerCheckService;
+import Entities.Gamer;
 import tr.gov.nvi.tckimlik.WS.KPSPublicSoapProxy;
 
-public class MernisServiceAdapter implements CustomerCheckService 
+public class MernisServiceManager implements GamerCheckService 
 {
 	KPSPublicSoapProxy client = new KPSPublicSoapProxy();
 	
 	@Override
-	public boolean CheckPerson(Customer customer) 
+	public boolean CheckPerson(Gamer gamer) 
 	{
 		boolean result=false;
 		try 
 		{
-			result= client.TCKimlikNoDogrula(Long.parseLong(customer.getNationalityId()), customer.getFirstName(),customer.getLastName(),customer.getDateOfBirth());
+			result= client.TCKimlikNoDogrula(Long.parseLong(gamer.getNationalityId()),
+															gamer.getFirstName(),gamer.getLastName(),
+															gamer.getDateOfBirth());
 		} 
 		catch (NumberFormatException e) {
 			e.printStackTrace();
